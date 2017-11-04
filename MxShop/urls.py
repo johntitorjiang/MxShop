@@ -20,6 +20,8 @@ from MxShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
+from rest_framework_jwt.views import obtain_jwt_token
 
 from goods.views import GoodsListViewSet, CategoryViewSet
 
@@ -37,5 +39,12 @@ urlpatterns = [
 
     url(r'^', include(router.urls)),
 
-    url(r'docs/', include_docs_urls(title="慕学生鲜"))
+    url(r'docs/', include_docs_urls(title="慕学生鲜")),
+
+    # drf 自带的认证模式
+    url(r'^api-token-auth/', views.obtain_auth_token),
+
+    # jwt的认证接口
+    url(r'^login/', obtain_jwt_token)
+
 ]
